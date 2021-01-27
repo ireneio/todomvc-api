@@ -5,7 +5,7 @@ WORKDIR /usr/src/node-api
 COPY . .
 
 ENV NODE_ENV=production
-ENV NODE_APP_CORS_URL=http://localhost:3000
+ENV NODE_APP_CORS_URL=https://questionnaire-fe.azurewebsites.net/
 
 RUN npm install --production && npm run build:prod
 
