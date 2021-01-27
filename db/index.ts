@@ -1,9 +1,9 @@
 import { Connection, ConnectionConfig, Request, ColumnValue } from 'tedious'
 
-const DB_USERNAME: string = ''
-const DB_PW: string = ''
-const DB_SERVER: string = ''
-const DB_DB: string = ''
+const DB_USERNAME: string = process.env.NODE_APP_DB_USERNAME || ''
+const DB_PW: string = process.env.NODE_APP_DB_PW || ''
+const DB_SERVER: string = process.env.NODE_APP_DB_SERVER || ''
+const DB_DB: string = process.env.NODE_APP_DB_DB || ''
 
 const config: ConnectionConfig = {
   authentication: {
