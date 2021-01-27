@@ -6,4 +6,9 @@ router.get('/', function(req: Request, res: Response, next: Function): void {
   res.send('Server Running!')
 })
 
+/* GET server health. */
+router.get('/health', function(req: Request, res: Response, next: Function): void {
+  res.send('Server Running!')
+})
+
 export default router
