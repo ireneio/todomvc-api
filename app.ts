@@ -4,8 +4,19 @@ import * as path from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 
+import initAzureSqlServer from './db/index'
+
 import indexRouter from './routes/index'
 
+// Connect to DB
+try {
+  initAzureSqlServer()
+  console.log('[DB] Connection Success.')
+} catch(e) {
+  console.log('[DB] Error: ' + e.message)
+}
+
+// Init Express
 const app: Application = express()
 
 app.use(logger('dev'))
@@ -14,9 +25,9 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-// CORS Headers
+// Set CORS Headers
 app.use(function(req: Request, res: Response, next: Function): void {
-  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_APP_CORS_URL || 'http://localhost:3001')
+  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_APP_CORS_URL || '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', ['Authorization', 'Content-Type'])
   next()
