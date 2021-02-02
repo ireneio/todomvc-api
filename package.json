@@ -31,10 +31,12 @@
     "tedious": "^11.0.1",
     "webpack-node-externals": "^2.5.2",
     "websocket": "^1.0.33",
-    "ws": "^7.4.2"
+    "ws": "^7.4.2",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
     "@types/http-errors": "^1.8.0",
     "@types/morgan": "^1.9.2",
