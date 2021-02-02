@@ -1,14 +1,13 @@
 export namespace SqlSchema {
-  interface User {
+  interface Item {
     id: number | bigint,
-    email: string,
-    password: string,
+    value: string,
+    status: number,
+  }
+  export interface ItemInput extends Item {
     created_on: string,
-    last_updated: string,
-    last_login: string,
-    access_token: string
+    last_updated: string
   }
-  export interface UserInput extends User {
 
-  }
+  export interface ItemHttpRequestBody extends Item {}
 }
