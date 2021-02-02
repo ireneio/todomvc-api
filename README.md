@@ -1,4 +1,4 @@
-# node-ts-es6-wp-api-template
+# todomvc-api
 
 ## Stack
 
