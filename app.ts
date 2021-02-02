@@ -27,11 +27,13 @@ initGql(app)
 
 // Cors
 const corsOptions = {
-  origin: process.env.NODE_APP_CORS_URL || 'http://localhost:3000',
+  origin: process.env.NODE_APP_CORS_URL || '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
 app.use(cors(corsOptions))
+
+console.log('t: ' + process.env.NODE_APP_CORS_URL)
 
 app.use(logger('dev'))
 app.use(express.json())
