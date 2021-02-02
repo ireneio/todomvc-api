@@ -1,6 +1,6 @@
 import { createItem, getItemAll, updateItem } from "../controllers/item"
 import initDb from "../local"
-import { createItemTable } from "../models/item"
+import { createItemTable, dropItemTable } from "../models/item"
 
 async function initializeDb(): Promise<void> {
   try {
@@ -13,8 +13,17 @@ async function initializeDb(): Promise<void> {
 async function initializeItemTable(): Promise<void> {
   try {
     await initDb()
+    await dropItemTable()
+
+  } catch(e) {
+    console.error(e.message)
+  }
+
+  try {
     await createItemTable()
     await createItem('hello world')
+    await getItemAll()
+    await updateItem(1, 'hello world - edit', -1)
     await getItemAll()
   } catch(e) {
     console.error(e.message)
@@ -22,9 +31,6 @@ async function initializeItemTable(): Promise<void> {
 }
 
 await initializeDb()
-
-// await initializeItemTable()
-
-await updateItem(1, 'hello world - edit', -1)
+await initializeItemTable()
 
 process.exit(0)
