@@ -22,10 +22,8 @@ const query: string = `
   }
 `
 
-// Construct a schema, using GraphQL schema language
 const schema: GraphQLSchema = buildSchema(query)
 
-// The root provides a resolver function for each API endpoint
 const root: { [index: string]: Function } = {
   list: async (): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
     try {
