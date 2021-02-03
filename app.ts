@@ -22,18 +22,19 @@ try {
 // Init Express
 export const app: Application = express()
 
-// Init GraphQL
-initGql(app)
+
 
 // Cors
 const corsOptions = {
   origin: process.env.NODE_APP_CORS_URL || '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
+console.log('t: ' + process.env.NODE_APP_CORS_URL)
 
 app.use(cors(corsOptions))
 
-console.log('t: ' + process.env.NODE_APP_CORS_URL)
+// Init GraphQL
+initGql(app)
 
 app.use(logger('dev'))
 app.use(express.json())
