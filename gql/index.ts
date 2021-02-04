@@ -1,7 +1,7 @@
 import { Application } from 'express'
 import { graphqlHTTP } from 'express-graphql';
 import { graphql, buildSchema, GraphQLSchema, Source } from 'graphql'
-import { createItem, deleteItem, getItemAll, updateItem } from '../db/controllers/item'
+import { createItem, deleteItem, getItemAll, getItemQuery, updateItem } from '../db/controllers/item'
 import { SqlSchema } from '../types/sql'
 
 const query: string = `
@@ -12,7 +12,8 @@ const query: string = `
   }
 
   type Query {
-    list: [List]
+    list: [List],
+    listQuery(status: Int!): [List]
   }
 
   type Mutation {
@@ -28,6 +29,14 @@ const root: { [index: string]: Function } = {
   list: async (): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
     try {
       return await getItemAll()
+    } catch(e) {
+      console.error('[Gql] Error: ' + e.message)
+      return false
+    }
+  },
+listQuery: async ({ status }: {status: number}): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
+    try {
+      return await getItemQuery(status)
     } catch(e) {
       console.error('[Gql] Error: ' + e.message)
       return false

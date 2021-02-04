@@ -22,9 +22,6 @@ try {
 // Init Express
 export const app: Application = express()
 
-// Init GraphQL
-initGql(app)
-
 // Cors
 const corsOptions = {
   origin: process.env.NODE_APP_CORS_URL || '*',
@@ -32,8 +29,10 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-
 console.log('t: ' + process.env.NODE_APP_CORS_URL)
+
+// Init GraphQL
+initGql(app)
 
 app.use(logger('dev'))
 app.use(express.json())

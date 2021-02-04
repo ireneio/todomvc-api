@@ -45,6 +45,30 @@ export async function getItemAll(): Promise<Array<SqlSchema.ItemInput> | false> 
   }
 }
 
+export async function getItemQuery(status: number): Promise<Array<SqlSchema.ItemInput> | false> {
+  const sql = `
+    SELECT id, value, status
+    FROM item
+    WHERE status = $1
+  `
+
+  console.log(status)
+
+  try {
+    const { rows } = await client.query(sql, [status])
+    console.log('[DB] getItemQuery Success: ')
+    console.log(rows)
+    if(isRowsExist(rows)) {
+      return rows
+    } else {
+      return false
+    }
+  } catch(e) {
+    console.log('[DB] getItemQuery Error: ' + e.message)
+    return false
+  }
+}
+
 export async function updateItem(id: number, value: string, status: number): Promise<Array<SqlSchema.ItemInput> | false> {
   const sql = `
     UPDATE item
