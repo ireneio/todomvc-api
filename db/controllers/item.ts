@@ -10,7 +10,7 @@ export async function createItem(value: string): Promise<Array<SqlSchema.ItemInp
   `
 
   try {
-    const { rows } = await client.query(sql, [value, 0])
+    const { rows } = await client.query(sql, [value, 1])
     if(isRowsExist(rows) && rows) {
       console.log('[DB] createItem Success: ')
       console.log(rows)
@@ -28,6 +28,7 @@ export async function getItemAll(): Promise<Array<SqlSchema.ItemInput> | false> 
   const sql = `
     SELECT id, value, status
     FROM item
+    ORDER BY status ASC
   `
 
   try {
@@ -51,8 +52,6 @@ export async function getItemQuery(status: number): Promise<Array<SqlSchema.Item
     FROM item
     WHERE status = $1
   `
-
-  console.log(status)
 
   try {
     const { rows } = await client.query(sql, [status])

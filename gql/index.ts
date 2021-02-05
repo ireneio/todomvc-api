@@ -28,15 +28,23 @@ const schema: GraphQLSchema = buildSchema(query)
 const root: { [index: string]: Function } = {
   list: async (): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
     try {
-      return await getItemAll()
+      const rows = await getItemAll()
+      if(rows && rows.length > 0) {
+        return rows
+      }
+      return []
     } catch(e) {
       console.error('[Gql] Error: ' + e.message)
       return false
     }
   },
-listQuery: async ({ status }: {status: number}): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
+  listQuery: async ({ status }: {status: number}): Promise<Array<SqlSchema.ItemHttpRequestBody> | boolean> => {
     try {
-      return await getItemQuery(status)
+      const rows = await getItemQuery(status)
+      if(rows && rows.length > 0) {
+        return rows
+      }
+      return []
     } catch(e) {
       console.error('[Gql] Error: ' + e.message)
       return false
